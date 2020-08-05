@@ -65,7 +65,7 @@
                           (str url "?" (query-string query-params))
                           (str url "&" (query-string query-params)))
                         url)
-                 :sslengine (or sslengine (when insecure? (ClientSslEngineFactory/trustAnybody)))
+                 :sslengine sslengine;(or sslengine (when insecure? (when-not *compile-files* (ClientSslEngineFactory/trustAnybody))))
                  :method    (HttpMethod/fromKeyword (or method :get))
                  :headers   (prepare-request-headers req)
             ;; :body ring body: null, String, seq, InputStream, File, ByteBuffer
@@ -94,7 +94,7 @@
   [size] (org.httpkit.client.IFilter$MaxBodyFilter. (int size)))
 
 ;;; "Get the default client. Normally, you only need one client per application. You can config parameter per request basic"
-(defonce default-client (delay (HttpClient.)))
+(defonce default-client (when-not *compile-files* (delay (HttpClient.))))
 
 (defn make-ssl-engine
   "Returns an SSLEngine using default or given SSLContext."
@@ -119,7 +119,7 @@ an SNI-capable one, e.g.:
     <...>)
 
  See also `make-client`."}
-  *default-client* default-client)
+  *default-client* (when-not *compile-files* default-client))
 
 (defn make-client
   "Returns an HttpClient with specified options:
