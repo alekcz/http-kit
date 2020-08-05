@@ -11,22 +11,7 @@ import java.security.cert.X509Certificate;
 public class ClientSslEngineFactory {
 
     private static final String PROTOCOL = "TLS";
-    // private static final SSLContext CLIENT_CONTEXT;
     static SSLContext clientContext = null;
-    // static {
-    //     SSLContext clientContext = null;
-
-    //     try {
-    //         clientContext = SSLContext.getInstance(PROTOCOL);
-    //         clientContext.init(null, TrustManagerFactory.getTrustManagers(),
-    //                 null);
-    //     } catch (Exception e) {
-    //         throw new Error(
-    //                 "Failed to initialize the client-side SSLContext", e);
-    //     }
-
-    //     CLIENT_CONTEXT = clientContext;
-    // }
 
     public static SSLEngine trustAnybody() {
         try {
