@@ -50,7 +50,7 @@
 (defonce
   ^{:doc "Like `org.httpkit.client/default-client`, but provides SNI support using `ssl-configurer`. NB Hostname verification currently requires Java version >= 11."}
   default-client
-    (delay
-      (require '[org.httpkit.client]) ; Lazy require to help users avoid circular deps
-      (org.httpkit.client/make-client
-        {:ssl-configurer ssl-configurer})))
+  (delay
+    (require '[org.httpkit.client]) ; Lazy require to help users avoid circular deps
+    (org.httpkit.client/make-client
+      {:ssl-configurer ssl-configurer})))
